@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bwei.hhzmy.activity.ShopActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/shop_ll"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#f8f8f8">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_margin="3dp"
+            android:id="@+id/fanhui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/cpt_back" />
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/t1"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/t2"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详情"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/t3"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评价"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/gouwucheimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/diandian"
+            android:src="@mipmap/commodity_shoppingcard" />
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:id="@+id/diandian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ebuy" />
+
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_shop"
+        android:layout_above="@+id/shop_ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shop_ll" />
+
+    <LinearLayout
+        android:id="@+id/shop_ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/commodity_castom_down" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/commodity_favor_down" />
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/commodity_shop_down" />
+
+        <Button
+            android:id="@+id/buy"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/eva_block_back_orange"
+            android:text="立即购买"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/btn_shopcar"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/new_person_gift_bottom2"
+            android:text="加入购物车"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
