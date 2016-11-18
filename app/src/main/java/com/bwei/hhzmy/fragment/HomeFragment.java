@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -19,10 +20,14 @@ import com.bwei.hhzmy.OkHttpUtil.OkHttp;
 import com.bwei.hhzmy.R;
 import com.bwei.hhzmy.activity.ErweimaActivity;
 import com.bwei.hhzmy.activity.LoginActivity;
+import com.bwei.hhzmy.activity.ShopActivity;
 import com.bwei.hhzmy.activity.SousuoActivity;
+import com.bwei.hhzmy.activity.WebViewActivity;
+import com.bwei.hhzmy.adapter.MyShouGridAdapter1;
 import com.bwei.hhzmy.adapter.MyShouYeGridAdapter;
 import com.bwei.hhzmy.adapter.MyShouYePagerAdapter;
 import com.bwei.hhzmy.bean.Bean;
+import com.bwei.hhzmy.tools.ImageLoaderUtils;
 import com.bwei.hhzmy.view.MyGridView;
 import com.bwei.hhzmy.view.MyListView;
 import com.google.gson.Gson;
@@ -45,6 +50,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,Easy
     private ImageView ivMesTop;
     private ViewPager vpShouye;
     private MyGridView gvShouye;
+    private MyGridView gvShouye1;
     private MyListView lvShouye;
     private ScrollView svShouye;
     private LinearLayout ll;
@@ -53,9 +59,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,Easy
     private List<Bean.DataBean.TagBean> list1 = new ArrayList<>();
     private List<Bean.DataBean.TagBean> mlist = new ArrayList<>();
     private List<Bean.DataBean.TagBean> mvlist = new ArrayList<>();
-    private List<Bean.DataBean.TagBean> mv1list = new ArrayList<>();
-    private List<Bean.DataBean.TagBean> mv2list = new ArrayList<>();
-    private List<Bean.DataBean.TagBean> mv3list = new ArrayList<>();
+    private List<Bean.DataBean.TagBean> tag5 = new ArrayList<>();
+    private List<Bean.DataBean.TagBean> tag6 = new ArrayList<>();
+    private List<Bean.DataBean.TagBean> tag7 = new ArrayList<>();
     private List<Bean.DataBean.TagBean> muyinlist = new ArrayList<>();
     private List<Bean.DataBean.TagBean> muyin1list = new ArrayList<>();
     private List<Bean.DataBean.TagBean> babylist = new ArrayList<>();
@@ -87,12 +93,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,Easy
     private LinearLayout mGallery4;
     private ImageView image;
     private ImageView pinpai;
-    private ImageView shipin;
-    private ImageView yi;
-    private ImageView yu;
-    private ImageView wan;
-    private ImageView yong;
-    private ImageView zhuxing;
     private ImageView yun;
     private ImageView zunmm;
     private ImageView muyin;
@@ -112,59 +112,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,Easy
     private ImageView queshi;
     private ImageView linyao;
     private ImageView more;
-
+    private MyShouGridAdapter1 adapter2;
+    private Bean bean;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment1, container, false);
+        view = inflater.inflate(R.layout.fragment1, container, false);
         //找到控件
-        ivMesTop = (ImageView) view.findViewById(R.id.iv_mes_top);//消息图片
-        ivScanTop = (ImageView) view.findViewById(R.id.iv_scan_top);//扫描图片
-        ll = (LinearLayout) view.findViewById(R.id.ll);
-        vpShouye = (ViewPager) view.findViewById(R.id.vp_shouye);//viewpager轮播
-        gvShouye = (MyGridView) view.findViewById(R.id.gv_shouye);//GridView
-
-        layout = (LinearLayout) view.findViewById(R.id.linearlayout);
-        mGallery = (LinearLayout) view.findViewById(R.id.id_gallery);//横向布局
-        mGallery1 = (LinearLayout) view.findViewById(R.id.id_gallery1);
-        mGallery2 = (LinearLayout) view.findViewById(R.id.id_gallery2);
-        mGallery3 = (LinearLayout) view.findViewById(R.id.id_gallery3);
-        mGallery4 = (LinearLayout) view.findViewById(R.id.id_gallery4);
-
-        image = (ImageView) view.findViewById(R.id.iv_shouye_jin);
-        pinpai = (ImageView) view.findViewById(R.id.iv_shouye_pin);
-        yi = (ImageView) view.findViewById(R.id.iv_shouye_yi);
-        shipin = (ImageView) view.findViewById(R.id.iv_shouye_shipin);
-        zhuxing = (ImageView) view.findViewById(R.id.iv_shouye_zhuxing);
-        yong = (ImageView) view.findViewById(R.id.iv_shouye_yong);
-        wan = (ImageView) view.findViewById(R.id.iv_shouye_wan);
-        yu = (ImageView) view.findViewById(R.id.iv_shouye_yu);
-        yun = (ImageView) view.findViewById(R.id.iv_shouye_yun);
-        zunmm = (ImageView) view.findViewById(R.id.iv_shouye_zunmm);
-        muyin = (ImageView) view.findViewById(R.id.iv_shouye_muyin);
-        xueqian = (ImageView) view.findViewById(R.id.iv_shouye_xueqian);
-        child = (ImageView) view.findViewById(R.id.iv_shouye_child);
-        baby = (ImageView) view.findViewById(R.id.iv_shouye_baby);
-        newstart = (ImageView) view.findViewById(R.id.iv_shouye_newstart);
-        theme = (ImageView) view.findViewById(R.id.iv_shouye_theme);
-        accesories = (ImageView) view.findViewById(R.id.iv_shouye_accesories);
-        bigjuhui = (ImageView) view.findViewById(R.id.iv_shouye_bigjuhui);
-        liangfh = (ImageView) view.findViewById(R.id.iv_shouye_liangfh);
-        smoney = (ImageView) view.findViewById(R.id.iv_shouye_smoney);
-        spellgroup=(ImageView) view.findViewById(R.id.iv_shouye_spellgroup);
-        yunzb=(ImageView) view.findViewById(R.id.iv_shouye_yunzb);
-        linyao=(ImageView) view.findViewById(R.id.iv_shouye_linyao);
-        queshi=(ImageView) view.findViewById(R.id.iv_shouye_queshi);
-        kangbei=(ImageView) view.findViewById(R.id.iv_shouye_kangbei);
-        xilang=(ImageView) view.findViewById(R.id.iv_shouye_xilang);
-        more=(ImageView) view.findViewById(R.id.iv_shouye_more);
-
+        initData();
         //发送消息
         myHandler.sendEmptyMessage(1);
         //请求数据
         initShuju();
-
         //viewpager小圆点联动
         vpShouye.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -192,14 +153,52 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,Easy
 
             }
         });
-
-
-
-        //点击
+        //点击跳转
         ivMesTop.setOnClickListener(this);
         ivScanTop.setOnClickListener(this);
         ll.setOnClickListener(this);
         return view;
+    }
+
+    /**
+     * 找控件
+     */
+    private void initData() {
+        ivMesTop = (ImageView) view.findViewById(R.id.iv_mes_top);//消息图片
+        ivScanTop = (ImageView) view.findViewById(R.id.iv_scan_top);//扫描图片
+        ll = (LinearLayout) view.findViewById(R.id.ll);
+        vpShouye = (ViewPager) view.findViewById(R.id.vp_shouye);//viewpager轮播
+        gvShouye = (MyGridView) view.findViewById(R.id.gv_shouye);//GridView
+        gvShouye1 = (MyGridView) view.findViewById(R.id.gv_shouye1);//GridView
+
+        layout = (LinearLayout) view.findViewById(R.id.linearlayout);
+        mGallery = (LinearLayout) view.findViewById(R.id.id_gallery);//横向布局
+        mGallery1 = (LinearLayout) view.findViewById(R.id.id_gallery1);
+        mGallery2 = (LinearLayout) view.findViewById(R.id.id_gallery2);
+        mGallery3 = (LinearLayout) view.findViewById(R.id.id_gallery3);
+        mGallery4 = (LinearLayout) view.findViewById(R.id.id_gallery4);
+
+        image = (ImageView) view.findViewById(R.id.iv_shouye_jin);
+        pinpai = (ImageView) view.findViewById(R.id.iv_shouye_pin);
+        yun = (ImageView) view.findViewById(R.id.iv_shouye_yun);
+        zunmm = (ImageView) view.findViewById(R.id.iv_shouye_zunmm);
+        muyin = (ImageView) view.findViewById(R.id.iv_shouye_muyin);
+        xueqian = (ImageView) view.findViewById(R.id.iv_shouye_xueqian);
+        child = (ImageView) view.findViewById(R.id.iv_shouye_child);
+        baby = (ImageView) view.findViewById(R.id.iv_shouye_baby);
+        newstart = (ImageView) view.findViewById(R.id.iv_shouye_newstart);
+        theme = (ImageView) view.findViewById(R.id.iv_shouye_theme);
+        accesories = (ImageView) view.findViewById(R.id.iv_shouye_accesories);
+        bigjuhui = (ImageView) view.findViewById(R.id.iv_shouye_bigjuhui);
+        liangfh = (ImageView) view.findViewById(R.id.iv_shouye_liangfh);
+        smoney = (ImageView) view.findViewById(R.id.iv_shouye_smoney);
+        spellgroup=(ImageView) view.findViewById(R.id.iv_shouye_spellgroup);
+        yunzb=(ImageView) view.findViewById(R.id.iv_shouye_yunzb);
+        linyao=(ImageView) view.findViewById(R.id.iv_shouye_linyao);
+        queshi=(ImageView) view.findViewById(R.id.iv_shouye_queshi);
+        kangbei=(ImageView) view.findViewById(R.id.iv_shouye_kangbei);
+        xilang=(ImageView) view.findViewById(R.id.iv_shouye_xilang);
+        more=(ImageView) view.findViewById(R.id.iv_shouye_more);
     }
 
     /**
@@ -215,174 +214,424 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,Easy
             @Override
             public void requestSuccess(String result) throws Exception {
                 Gson gson = new Gson();
-                Bean bean = gson.fromJson(result, Bean.class);
+                bean = gson.fromJson(result, Bean.class);
 
-                //加载viewpager
-                list = bean.getData().get(0).getTag();
-                adapter = new MyShouYePagerAdapter(getActivity(), list);
-                //加载GridView
-                list1 = bean.getData().get(1).getTag();
-                adapter1 = new MyShouYeGridAdapter(getActivity(), list1);
-                //添加小圆点
-                initYuanDian();
-                //适配器
-                vpShouye.setAdapter(adapter);
-                gvShouye.setAdapter(adapter1);
+                //加载viewpager轮播与gridview
+                initviewpager();
 
                 //加载秒杀图片
-                mlist = bean.getData().get(2).getTag();
-                ImageLoader.getInstance().displayImage(murl + mlist.get(0).getPicUrl(), image);
+                initmiaosha();
 
-                //加载横向图片
-                List<View> mview = new ArrayList<View>();
-                for (int i = 1; i < 7; i++) {
-                    mInflater = LayoutInflater.from(getActivity());
-                    View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
-                    ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
-                    ImageLoader.getInstance().displayImage(murl + mlist.get(i).getPicUrl(), iv);
-                    mview.add(view);
-                }
-                for (int i = 0; i < 6; i++) {
-                    mGallery.addView(mview.get(i));
-                }
+                //加载品牌专区
+                initpinpaizhuanqu();
 
-                //加载品牌图片
-                mvlist = bean.getData().get(4).getTag();
-                ImageLoader.getInstance().displayImage(murl + mvlist.get(0).getPicUrl(), pinpai);
-
-                //加载衣食图片
-                mv1list = bean.getData().get(5).getTag();
-                ImageLoader.getInstance().displayImage(murl + mv1list.get(0).getPicUrl(), yi);
-                ImageLoader.getInstance().displayImage(murl + mv1list.get(1).getPicUrl(), shipin);
-
-                //加载住行图片
-                mv2list = bean.getData().get(6).getTag();
-                ImageLoader.getInstance().displayImage(murl + mv2list.get(0).getPicUrl(), zhuxing);
-                ImageLoader.getInstance().displayImage(murl + mv2list.get(1).getPicUrl(), yong);
-                //加载玩育图片
-                mv3list = bean.getData().get(7).getTag();
-                ImageLoader.getInstance().displayImage(murl + mv3list.get(0).getPicUrl(), wan);
-                ImageLoader.getInstance().displayImage(murl + mv3list.get(1).getPicUrl(), yu);
-                //加载母婴图片
-                muyinlist = bean.getData().get(9).getTag();
-                ImageLoader.getInstance().displayImage(murl + muyinlist.get(0).getPicUrl(), muyin);
-
-                //加载准妈妈图片
-                muyin1list = bean.getData().get(10).getTag();
-                ImageLoader.getInstance().displayImage(murl + muyin1list.get(0).getPicUrl(), zunmm);
-                ImageLoader.getInstance().displayImage(murl + muyin1list.get(1).getPicUrl(), yun);
-
-                //加载宝贝专区图片
-                babylist = bean.getData().get(11).getTag();
-                ImageLoader.getInstance().displayImage(murl+ babylist.get(0).getPicUrl(), newstart);
-                ImageLoader.getInstance().displayImage(murl + babylist.get(1).getPicUrl(), baby);
-                ImageLoader.getInstance().displayImage(murl + babylist.get(2).getPicUrl(), child);
-                ImageLoader.getInstance().displayImage(murl + babylist.get(3).getPicUrl(), xueqian);
+                //加载母婴专区
+                initmuying();
 
                 //加载主题专区图片
-                themelist = bean.getData().get(13).getTag();
-                ImageLoader.getInstance().displayImage(murl + themelist.get(0).getPicUrl(), theme);
-                theme1list=bean.getData().get(14).getTag();
-                ImageLoader.getInstance().displayImage(murl + theme1list.get(0).getPicUrl(), accesories);
-
-                //加载主题横向图片
-                theme2list = bean.getData().get(15).getTag();
-                List<View> mview1 = new ArrayList<View>();
-                for (int i = 0; i < theme2list.size(); i++) {
-                    mInflater = LayoutInflater.from(getActivity());
-                    View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
-                    ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
-                    ImageLoader.getInstance().displayImage(murl + theme2list.get(i).getPicUrl(), iv);
-                    mview1.add(view);
-                }
-                for (int i = 0; i < theme2list.size(); i++) {
-                    mGallery1.addView(mview1.get(i));
-                }
+                initzhuti();
 
                 //加载大聚惠图片
-                bigjuhuilist = bean.getData().get(16).getTag();
-                ImageLoader.getInstance().displayImage(murl + bigjuhuilist.get(0).getPicUrl(), bigjuhui);
-
-                //加载大聚惠横向图片
-                bigjuhui1list = bean.getData().get(17).getTag();
-                List<View> mview2 = new ArrayList<View>();
-                for (int i = 0; i < bigjuhui1list.size(); i++) {
-                    mInflater = LayoutInflater.from(getActivity());
-                    View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
-                    ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
-                    ImageLoader.getInstance().displayImage(murl + bigjuhui1list.get(i).getPicUrl(), iv);
-                    mview2.add(view);
-                }
-                for (int i = 0; i < bigjuhui1list.size(); i++) {
-                    mGallery2.addView(mview2.get(i));
-                }
+                initjuhui();
 
                 //加载量贩惠图片
-                tag18 = bean.getData().get(18).getTag();
-                ImageLoader.getInstance().displayImage(murl + tag18.get(0).getPicUrl(), liangfh);
-
-                //加载量贩惠横向图片
-                tag19 = bean.getData().get(19).getTag();
-                List<View> mview3 = new ArrayList<View>();
-                for (int i = 0; i < tag19.size(); i++) {
-                    mInflater = LayoutInflater.from(getActivity());
-                    View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
-                    ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
-                    ImageLoader.getInstance().displayImage(murl + tag19.get(i).getPicUrl(), iv);
-                    mview3.add(view);
-                }
-                for (int i = 0; i < tag19.size(); i++) {
-                    mGallery3.addView(mview3.get(i));
-                }
+                initliangfanh();
 
                 //加载省钱图片
-                tag20 = bean.getData().get(20).getTag();
-                ImageLoader.getInstance().displayImage(murl + tag20.get(0).getPicUrl(), smoney);
-
-                //加载省钱横向图片
-                tag21 = bean.getData().get(21).getTag();
-                List<View> mview4 = new ArrayList<View>();
-                for (int i = 0; i < tag21.size(); i++) {
-                    mInflater = LayoutInflater.from(getActivity());
-                    View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
-                    ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
-                    ImageLoader.getInstance().displayImage(murl + tag21.get(i).getPicUrl(), iv);
-                    mview4.add(view);
-                }
-                for (int i = 0; i < tag21.size(); i++) {
-                    mGallery4.addView(mview4.get(i));
-                }
+                initsmoney();
 
                 //加载拼团图片
-                tag23 = bean.getData().get(23).getTag();
-                ImageLoader.getInstance().displayImage(murl + tag23.get(0).getPicUrl(), spellgroup);
+                initpintuan();
+            }
+        });
+    }
 
-                //加载运智贝图片
-                tag24 = bean.getData().get(24).getTag();
-                ImageLoader.getInstance().displayImage(murl + tag24.get(0).getPicUrl(), yunzb);
+    /**
+     * 加载省钱图片
+     */
+    private void initsmoney() {
+        //加载省钱图片
+        tag20 = bean.getData().get(20).getTag();
+        ImageLoader.getInstance().displayImage(murl + tag20.get(0).getPicUrl(), smoney, ImageLoaderUtils.initOptions());
+        smoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag20.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载省钱横向图片
+        tag21 = bean.getData().get(21).getTag();
+        List<View> mview4 = new ArrayList<View>();
+        for (int i = 0; i < tag21.size(); i++) {
+            mInflater = LayoutInflater.from(getActivity());
+            View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
+            ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
+            ImageLoader.getInstance().displayImage(murl + tag21.get(i).getPicUrl(), iv, ImageLoaderUtils.initOptions());
+            mview4.add(view);
+            final int finalI = i;
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra("url",tag21.get(finalI).getLinkUrl());
+                    startActivity(intent);
+                }
+            });
+        }
+        for (int i = 0; i < tag21.size(); i++) {
+            mGallery4.addView(mview4.get(i));
+        }
+    }
 
-                //加载康贝图片
-                tag26 = bean.getData().get(26).getTag();
-                ImageLoader.getInstance().displayImage(murl+ tag26.get(0).getPicUrl(), kangbei);
+    /**
+     * 加载量贩惠图片
+     */
+    private void initliangfanh() {
+        //加载量贩惠图片
+        tag18 = bean.getData().get(18).getTag();
+        ImageLoader.getInstance().displayImage(murl + tag18.get(0).getPicUrl(), liangfh, ImageLoaderUtils.initOptions());
+        liangfh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag18.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载量贩惠横向图片
+        tag19 = bean.getData().get(19).getTag();
+        List<View> mview3 = new ArrayList<View>();
+        for (int i = 0; i < tag19.size(); i++) {
+            mInflater = LayoutInflater.from(getActivity());
+            View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
+            ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
+            ImageLoader.getInstance().displayImage(murl + tag19.get(i).getPicUrl(), iv, ImageLoaderUtils.initOptions());
+            mview3.add(view);
+            final int finalI = i;
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra("url",tag19.get(finalI).getLinkUrl());
+                    startActivity(intent);
+                }
+            });
+        }
+        for (int i = 0; i < tag19.size(); i++) {
+            mGallery3.addView(mview3.get(i));
+        }
+    }
 
-                //加载喜朗图片
-                tag28 = bean.getData().get(28).getTag();
-                ImageLoader.getInstance().displayImage(murl + tag28.get(0).getPicUrl(), xilang);
+    /**
+     * 加载大聚惠图片
+     */
+    private void initjuhui() {
+        //加载大聚惠图片
+        bigjuhuilist = bean.getData().get(16).getTag();
+        ImageLoader.getInstance().displayImage(murl + bigjuhuilist.get(0).getPicUrl(), bigjuhui, ImageLoaderUtils.initOptions());
+        bigjuhui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",bigjuhuilist.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载大聚惠横向图片
+        bigjuhui1list = bean.getData().get(17).getTag();
+        List<View> mview2 = new ArrayList<View>();
+        for (int i = 0; i < bigjuhui1list.size(); i++) {
+            mInflater = LayoutInflater.from(getActivity());
+            View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
+            ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
+            ImageLoader.getInstance().displayImage(murl + bigjuhui1list.get(i).getPicUrl(), iv, ImageLoaderUtils.initOptions());
+            mview2.add(view);
+            final int finalI = i;
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra("url",bigjuhui1list.get(finalI).getLinkUrl());
+                    startActivity(intent);
+                }
+            });
+        }
+        for (int i = 0; i < bigjuhui1list.size(); i++) {
+            mGallery2.addView(mview2.get(i));
+        }
+    }
 
-                //加载玲瑶宝宝图片
-                tag30 = bean.getData().get(30).getTag();
-                ImageLoader.getInstance().displayImage(murl + tag30.get(0).getPicUrl(), linyao);
+    /**
+     * 加载秒杀图片
+     */
+    private void initmiaosha() {
+        //加载秒杀图片
+        mlist = bean.getData().get(2).getTag();
+        ImageLoader.getInstance().displayImage(murl + mlist.get(0).getPicUrl(), image, ImageLoaderUtils.initOptions());
 
-                //加载雀氏图片
-                tag32 = bean.getData().get(32).getTag();
-                ImageLoader.getInstance().displayImage(murl + tag32.get(0).getPicUrl(), queshi);
+        //加载横向图片
+        List<View> mview = new ArrayList<View>();
+        for (int i = 1; i < 7; i++) {
+            mInflater = LayoutInflater.from(getActivity());
+            View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
+            ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
+            ImageLoader.getInstance().displayImage(murl + mlist.get(i).getPicUrl(), iv, ImageLoaderUtils.initOptions());
+            mview.add(view);
+            final int finalI = i;
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra("url",mlist.get(finalI).getLinkUrl());
+                    startActivity(intent);
+                }
+            });
+        }
+        for (int i = 0; i < 6; i++) {
+            mGallery.addView(mview.get(i));
+        }
+    }
 
-                //加载更多图片
-                tag33 = bean.getData().get(33).getTag();
-                ImageLoader.getInstance().displayImage(murl + tag33.get(0).getPicUrl(), more);
+    /**
+     * 加载主题专区图片
+     */
+    private void initzhuti() {
+        //加载主题专区图片
+        themelist = bean.getData().get(13).getTag();
+        ImageLoader.getInstance().displayImage(murl + themelist.get(0).getPicUrl(), theme, ImageLoaderUtils.initOptions());
+        theme1list=bean.getData().get(14).getTag();
+        ImageLoader.getInstance().displayImage(murl + theme1list.get(0).getPicUrl(), accesories, ImageLoaderUtils.initOptions());
+        accesories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",theme1list.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载主题横向图片
+        theme2list = bean.getData().get(15).getTag();
+        List<View> mview1 = new ArrayList<View>();
+        for (int i = 0; i < theme2list.size(); i++) {
+            mInflater = LayoutInflater.from(getActivity());
+            View view = mInflater.inflate(R.layout.shouye_horizontalscroll, null);
+            ImageView iv = (ImageView) view.findViewById(R.id.iv_horizontal_image);
+            ImageLoader.getInstance().displayImage(murl + theme2list.get(i).getPicUrl(), iv, ImageLoaderUtils.initOptions());
+            mview1.add(view);
+            final int finalI = i;
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getActivity(), ShopActivity.class);
+                    intent.putExtra("url",theme2list.get(finalI).getLinkUrl());
+                    startActivity(intent);
+                }
+            });
+        }
+        for (int i = 0; i < theme2list.size(); i++) {
+            mGallery1.addView(mview1.get(i));
+        }
+    }
+
+    /**
+     * 加载拼团图片
+     */
+    private void initpintuan() {
+        //加载拼团图片
+        tag23 = bean.getData().get(23).getTag();
+        ImageLoader.getInstance().displayImage(murl + tag23.get(0).getPicUrl(), spellgroup, ImageLoaderUtils.initOptions());
+
+        //加载运智贝图片
+        tag24 = bean.getData().get(24).getTag();
+        ImageLoader.getInstance().displayImage(murl + tag24.get(0).getPicUrl(), yunzb, ImageLoaderUtils.initOptions());
+        yunzb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag24.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载康贝图片
+        tag26 = bean.getData().get(26).getTag();
+        ImageLoader.getInstance().displayImage(murl+ tag26.get(0).getPicUrl(), kangbei, ImageLoaderUtils.initOptions());
+        kangbei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag26.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载喜朗图片
+        tag28 = bean.getData().get(28).getTag();
+        ImageLoader.getInstance().displayImage(murl + tag28.get(0).getPicUrl(), xilang, ImageLoaderUtils.initOptions());
+        xilang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag28.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载玲瑶宝宝图片
+        tag30 = bean.getData().get(30).getTag();
+        ImageLoader.getInstance().displayImage(murl + tag30.get(0).getPicUrl(), linyao, ImageLoaderUtils.initOptions());
+        linyao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag30.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载雀氏图片
+        tag32 = bean.getData().get(32).getTag();
+        ImageLoader.getInstance().displayImage(murl + tag32.get(0).getPicUrl(), queshi, ImageLoaderUtils.initOptions());
+        queshi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag32.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载更多图片
+        tag33 = bean.getData().get(33).getTag();
+        ImageLoader.getInstance().displayImage(murl + tag33.get(0).getPicUrl(), more, ImageLoaderUtils.initOptions());
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag33.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 加载母婴专区图片
+     */
+    private void initmuying() {
+        //加载母婴图片
+        muyinlist = bean.getData().get(9).getTag();
+        ImageLoader.getInstance().displayImage(murl + muyinlist.get(0).getPicUrl(), muyin, ImageLoaderUtils.initOptions());
+
+        //加载准妈妈图片
+        muyin1list = bean.getData().get(10).getTag();
+        ImageLoader.getInstance().displayImage(murl + muyin1list.get(0).getPicUrl(), zunmm, ImageLoaderUtils.initOptions());
+        ImageLoader.getInstance().displayImage(murl + muyin1list.get(1).getPicUrl(), yun, ImageLoaderUtils.initOptions());
+        //点击
+        zunmm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",muyin1list.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        yun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",muyin1list.get(1).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        //加载宝贝专区图片
+        babylist = bean.getData().get(11).getTag();
+        ImageLoader.getInstance().displayImage(murl+ babylist.get(0).getPicUrl(), newstart, ImageLoaderUtils.initOptions());
+        ImageLoader.getInstance().displayImage(murl + babylist.get(1).getPicUrl(), baby, ImageLoaderUtils.initOptions());
+        ImageLoader.getInstance().displayImage(murl + babylist.get(2).getPicUrl(), child, ImageLoaderUtils.initOptions());
+        ImageLoader.getInstance().displayImage(murl + babylist.get(3).getPicUrl(), xueqian, ImageLoaderUtils.initOptions());
+        //点击
+        newstart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",babylist.get(0).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        baby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",babylist.get(1).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        child.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",babylist.get(2).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+        xueqian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",babylist.get(3).getLinkUrl());
+                startActivity(intent);
+            }
+        });
 
 
+    }
 
+    /**
+     * 加载viewpager轮播与gridview
+     */
+    private void initviewpager() {
+        //加载viewpager
+        list = bean.getData().get(0).getTag();
+        adapter = new MyShouYePagerAdapter(getActivity(), list);
+        //加载GridView
+        list1 = bean.getData().get(1).getTag();
+        adapter1 = new MyShouYeGridAdapter(getActivity(), list1);
+
+        //添加小圆点
+        initYuanDian();
+        //适配器
+        vpShouye.setAdapter(adapter);
+        gvShouye.setAdapter(adapter1);
+        //GridView监听
+        gvShouye.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",list1.get(i).getLinkUrl());
+                startActivity(intent);
+            }
+        });
+    }
+    /**
+     *  加载品牌图片
+     */
+    private void initpinpaizhuanqu() {
+        //加载品牌图片
+        mvlist = bean.getData().get(4).getTag();
+        ImageLoader.getInstance().displayImage(murl + mvlist.get(0).getPicUrl(), pinpai, ImageLoaderUtils.initOptions());
+        //gridview加载衣食住行图片
+        final List<Bean.DataBean.TagBean> tag=new ArrayList<>();
+        tag5=bean.getData().get(5).getTag();
+        tag6=bean.getData().get(6).getTag();
+        tag7=bean.getData().get(7).getTag();
+        tag.addAll(tag5);
+        tag.addAll(tag6);
+        tag.addAll(tag7);
+        adapter2=new MyShouGridAdapter1(tag,getActivity());
+        gvShouye1.setAdapter(adapter2);
+        gvShouye1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("地址",tag.get(i).getLinkUrl());
+                startActivity(intent);
             }
         });
     }
@@ -412,7 +661,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,Easy
     }
 
     /**
-     * 点击效果
+     * 点击跳转
      */
     @Override
     public void onClick(View view) {

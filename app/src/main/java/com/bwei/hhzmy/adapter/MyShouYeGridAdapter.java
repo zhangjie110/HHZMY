@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bwei.hhzmy.R;
 import com.bwei.hhzmy.bean.Bean;
+import com.bwei.hhzmy.tools.ImageLoaderUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MyShouYeGridAdapter extends BaseAdapter{
     public MyShouYeGridAdapter(Context context, List<Bean.DataBean.TagBean> list) {
         this.context = context;
         this.list = list;
-        loader=loader.getInstance();
+        loader=ImageLoader.getInstance();
     }
 
     @Override
@@ -56,7 +57,7 @@ public class MyShouYeGridAdapter extends BaseAdapter{
             holder=(ViewHolder) view.getTag();
         }
         holder.tv.setText(list.get(i).getElementName());
-        ImageLoader.getInstance().displayImage("http://image1.suning.cn/"+list.get(i).getPicUrl(),holder.iv);
+        loader.displayImage("http://image1.suning.cn/"+list.get(i).getPicUrl(),holder.iv, ImageLoaderUtils.initOptions());
 
 
         return view;

@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -32,4 +37,6 @@ dependencies {
     compile 'cn.bingoogolapple:bga-zbar:1.1.4@aar'
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'pub.devrel:easypermissions:0.1.7'
+    compile files('libs/alipaySdk-20161009.jar')
+    compile files('libs/BaiduLBS_Android.jar')
 }

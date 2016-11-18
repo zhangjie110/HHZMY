@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:text="好奇" />
+            android:text="花王" />
     </LinearLayout>
 
 
