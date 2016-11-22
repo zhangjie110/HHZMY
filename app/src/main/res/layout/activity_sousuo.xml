@@ -15,16 +15,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@mipmap/cpt_back"/>
-        <ImageView
-            android:background="#eeeeee"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_search_home"/>
         <EditText
             android:background="#eeeeee"
             android:layout_weight="7"
             android:layout_width="0dp"
+            android:drawableLeft="@mipmap/icon_search_home"
             android:layout_height="wrap_content"
             android:hint="好奇"/>
         <TextView

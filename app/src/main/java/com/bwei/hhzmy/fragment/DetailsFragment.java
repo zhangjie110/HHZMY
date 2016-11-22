@@ -43,19 +43,19 @@ public class DetailsFragment extends Fragment{
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 switch (position){
                     case 0:
-                        tv_xiangping.setTextColor(Color.YELLOW);
+                        tv_xiangping.setTextColor(Color.LTGRAY);
                         tv_canshu.setTextColor(Color.BLACK);
                         tv_shouhou.setTextColor(Color.BLACK);
                         break;
                     case 1:
                         tv_xiangping.setTextColor(Color.BLACK);
-                        tv_canshu.setTextColor(Color.YELLOW);
+                        tv_canshu.setTextColor(Color.LTGRAY);
                         tv_shouhou.setTextColor(Color.BLACK);
                         break;
                     case 2:
                         tv_xiangping.setTextColor(Color.BLACK);
                         tv_canshu.setTextColor(Color.BLACK);
-                        tv_shouhou.setTextColor(Color.YELLOW);
+                        tv_shouhou.setTextColor(Color.LTGRAY);
                         break;
                 }
             }

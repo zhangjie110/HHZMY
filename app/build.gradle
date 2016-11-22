@@ -39,4 +39,5 @@ dependencies {
     compile 'pub.devrel:easypermissions:0.1.7'
     compile files('libs/alipaySdk-20161009.jar')
     compile files('libs/BaiduLBS_Android.jar')
+    compile 'com.android.support:recyclerview-v7:25.0.0'
 }
